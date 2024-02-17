@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "99771152866",
+    "project_id": "examchatgpt-efb07",
+    "storage_bucket": "examchatgpt-efb07.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:99771152866:android:e9b0be54bbfda3d89e21bb",
+        "android_client_info": {
+          "package_name": "com.mycompany.mar01chatGPT"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyFtt8-JLkUIrJaR0R4xmKkn6p6e0scYI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
