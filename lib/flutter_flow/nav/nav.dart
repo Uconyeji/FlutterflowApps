@@ -94,6 +94,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                   : const ChatsWidget(),
             ),
             FFRoute(
+              name: 'profile',
+              path: 'profile',
+              builder: (context, params) => params.isEmpty
+                  ? const NavBarPage(initialPage: 'profile')
+                  : const ProfileWidget(),
+            ),
+            FFRoute(
+              name: 'Signup',
+              path: 'signup',
+              builder: (context, params) => const SignupWidget(),
+            ),
+            FFRoute(
               name: 'chat_messages',
               path: 'chatMessages',
               builder: (context, params) => ChatMessagesWidget(
@@ -102,23 +114,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               ),
             ),
             FFRoute(
-              name: 'profile',
-              path: 'profile',
-              builder: (context, params) => params.isEmpty
-                  ? const NavBarPage(initialPage: 'profile')
-                  : const ProfileWidget(),
-            ),
-            FFRoute(
               name: 'assistant',
               path: 'assistant',
               builder: (context, params) => params.isEmpty
                   ? const NavBarPage(initialPage: 'assistant')
                   : const AssistantWidget(),
-            ),
-            FFRoute(
-              name: 'Signup',
-              path: 'signup',
-              builder: (context, params) => const SignupWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

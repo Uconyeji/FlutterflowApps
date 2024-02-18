@@ -22,7 +22,8 @@ class ChatGPTCall {
       callType: ApiCallType.POST,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer OPENAI_API_KEY',
+        'Authorization':
+            'Bearer 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',
       },
       params: {},
       body: ffApiRequestBody,
