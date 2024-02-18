@@ -1,11 +1,9 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'login_model.dart';
 export 'login_model.dart';
@@ -27,11 +25,11 @@ class _LoginWidgetState extends State<LoginWidget> {
     super.initState();
     _model = createModel(context, () => LoginModel());
 
-    _model.emailTextController ??= TextEditingController();
-    _model.textFieldFocusNode1 ??= FocusNode();
+    _model.textField1Controller ??= TextEditingController();
+    _model.textField1FocusNode ??= FocusNode();
 
-    _model.passwordTextController ??= TextEditingController();
-    _model.textFieldFocusNode2 ??= FocusNode();
+    _model.password1Controller ??= TextEditingController();
+    _model.password1FocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -135,8 +133,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                     child: Padding(
                       padding: const EdgeInsets.all(2.0),
                       child: TextFormField(
-                        controller: _model.emailTextController,
-                        focusNode: _model.textFieldFocusNode1,
+                        controller: _model.textField1Controller,
+                        focusNode: _model.textField1FocusNode,
                         obscureText: false,
                         decoration: InputDecoration(
                           labelText: 'Your email address',
@@ -178,7 +176,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium,
                         maxLines: null,
-                        validator: _model.emailTextControllerValidator
+                        validator: _model.textField1ControllerValidator
                             .asValidator(context),
                       ),
                     ),
@@ -202,9 +200,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                     child: Padding(
                       padding: const EdgeInsets.all(2.0),
                       child: TextFormField(
-                        controller: _model.passwordTextController,
-                        focusNode: _model.textFieldFocusNode2,
-                        obscureText: !_model.passwordVisibility,
+                        controller: _model.password1Controller,
+                        focusNode: _model.password1FocusNode,
+                        obscureText: !_model.password1Visibility,
                         decoration: InputDecoration(
                           labelText: 'Password',
                           labelStyle: FlutterFlowTheme.of(context).bodySmall,
@@ -244,12 +242,12 @@ class _LoginWidgetState extends State<LoginWidget> {
                               20.0, 24.0, 20.0, 24.0),
                           suffixIcon: InkWell(
                             onTap: () => setState(
-                              () => _model.passwordVisibility =
-                                  !_model.passwordVisibility,
+                              () => _model.password1Visibility =
+                                  !_model.password1Visibility,
                             ),
                             focusNode: FocusNode(skipTraversal: true),
                             child: Icon(
-                              _model.passwordVisibility
+                              _model.password1Visibility
                                   ? Icons.visibility_outlined
                                   : Icons.visibility_off_outlined,
                               color: const Color(0xFF757575),
@@ -258,7 +256,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           ),
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium,
-                        validator: _model.passwordTextControllerValidator
+                        validator: _model.password1ControllerValidator
                             .asValidator(context),
                       ),
                     ),
@@ -272,7 +270,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                     children: [
                       FFButtonWidget(
                         onPressed: () async {
-                          if (_model.emailTextController.text.isEmpty) {
+                          if (_model.textField1Controller.text.isEmpty) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text(
@@ -283,7 +281,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             return;
                           }
                           await authManager.resetPassword(
-                            email: _model.emailTextController.text,
+                            email: _model.textField1Controller.text,
                             context: context,
                           );
                         },
@@ -314,8 +312,8 @@ class _LoginWidgetState extends State<LoginWidget> {
 
                           final user = await authManager.signInWithEmail(
                             context,
-                            _model.emailTextController.text,
-                            _model.passwordTextController.text,
+                            _model.textField1Controller.text,
+                            _model.password1Controller.text,
                           );
                           if (user == null) {
                             return;
@@ -358,16 +356,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                             const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 24.0),
                         child: FFButtonWidget(
                           onPressed: () async {
-                            GoRouter.of(context).prepareAuthEvent();
-                            final user =
-                                await authManager.signInAnonymously(context);
-                            if (user == null) {
-                              return;
-                            }
-
-                            context.goNamedAuth('chats', context.mounted);
+                            context.pushNamed('Signup');
                           },
-                          text: 'Continue as Guest',
+                          text: 'Back',
                           options: FFButtonOptions(
                             width: 230.0,
                             height: 50.0,
@@ -375,8 +366,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 0.0, 0.0, 0.0, 0.0),
                             iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
+                            color: FlutterFlowTheme.of(context).secondary,
                             textStyle: FlutterFlowTheme.of(context).titleSmall,
                             elevation: 0.0,
                             borderSide: const BorderSide(
@@ -385,38 +375,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                             ),
                           ),
                         ),
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: FlutterFlowIconButton(
-                              borderColor: Colors.transparent,
-                              borderRadius: 30.0,
-                              borderWidth: 1.0,
-                              buttonSize: 50.0,
-                              fillColor: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              icon: FaIcon(
-                                FontAwesomeIcons.google,
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                size: 24.0,
-                              ),
-                              onPressed: () async {
-                                GoRouter.of(context).prepareAuthEvent();
-                                final user =
-                                    await authManager.signInWithGoogle(context);
-                                if (user == null) {
-                                  return;
-                                }
-
-                                context.goNamedAuth('chats', context.mounted);
-                              },
-                            ),
-                          ),
-                        ],
                       ),
                     ],
                   ),
